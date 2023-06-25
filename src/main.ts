@@ -1,23 +1,24 @@
-import { config as dotEnvConfig } from "dotenv";
-dotEnvConfig();
-
 import bodyParser from "body-parser";
 import express from "express";
 
-import { config } from "./config";
-import { healthRouter } from "./health/health-router";
+import { courseRouter } from "./course/infrastructure/CourseRoutes";
 
-function boostrap() {
-  const app = express();
+// import { userRouter } from "./user/infrastructure/UserRoutes";
 
-  app.use(bodyParser.json());
-  app.use("/health", healthRouter);
+const app = express();
 
-  const { port } = config.server;
+const PORT = 3000;
 
-  app.listen(port, () => {
-    console.log(`[APP] - Starting application on port ${port}`);
-  });
-}
+app.use(bodyParser.json());
 
-boostrap();
+// app.use("/health", healthRouter);
+app.use("/course", courseRouter);
+
+app.use("/public", express.static("imgs"));
+app.get("/", function (req, res) {
+  res.send("Esta es la API de la entidad curso de el proeycto instrumaster");
+});
+
+app.listen(PORT, () => {
+  console.log(`[APP] - Starting application on port ${PORT}`);
+});
