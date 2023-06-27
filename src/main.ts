@@ -1,17 +1,16 @@
 import bodyParser from "body-parser";
+import { config } from "dotenv";
 import express from "express";
 
 import { courseRouter } from "./course/infrastructure/CourseRoutes";
 
-// import { userRouter } from "./user/infrastructure/UserRoutes";
-
+config();
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORTPROJECT;
 
 app.use(bodyParser.json());
 
-// app.use("/health", healthRouter);
 app.use("/course", courseRouter);
 
 app.use("/public", express.static("imgs"));
@@ -20,5 +19,8 @@ app.get("/", function (req, res) {
 });
 
 app.listen(PORT, () => {
-  console.log(`[APP] - Starting application on port ${PORT}`);
+  console.log(
+    `[APP] - Starting application on port ${process.env.PORTPROJECT}`
+  );
+  console.log(`[APP] - Starting application on ip ${process.env.IPPROJECT}`);
 });

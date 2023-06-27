@@ -1,7 +1,9 @@
+import { config } from "dotenv";
 import { Request, Response } from "express";
 
 import { GetAllCoursesUseCase } from "../../application/GetAllCoursesUseCase";
 
+config();
 export class GetAllCoursesController {
   constructor(readonly getAllCoursesUseCase: GetAllCoursesUseCase) {}
 
@@ -9,7 +11,7 @@ export class GetAllCoursesController {
     try {
       const courses = await this.getAllCoursesUseCase.run();
 
-      const baseUrl = "http://localhost:3000/public/";
+      const baseUrl = `http://${process.env.IPPROJECT}:${process.env.PORTPROJECT}/public/`;
 
       const transformedCourses = courses?.map((course) => {
         const imageName = course.course_logo.split("\\").pop();

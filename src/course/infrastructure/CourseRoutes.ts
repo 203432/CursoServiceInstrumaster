@@ -9,7 +9,7 @@ import {
 
 export const courseRouter = express.Router();
 
-//Crear usuario route
+//Crear curso route
 courseRouter.post(
   "/",
   upload.single("course_logo"),
