@@ -13,23 +13,16 @@ export class GetCourseByIdController {
     const course: Course | null = await this.getCourseByIdUseCase.run(courseId);
     if (!course) {
       return res.status(400).json({
-        message: "No existe este usuario",
+        message: "No existe este curso",
       });
     }
-    console.log(course?.id);
-    const imageFromDB = course.course_logo;
-    console.log(imageFromDB);
-    const imageName = imageFromDB.split("\\").pop();
-    const baseUrl = `http://${process.env.IPPROJECT}:${process.env.PORTPROJECT}/public/`;
-    const imageUrl = baseUrl + imageName;
-    console.log(imageUrl);
-    const encodedUrl = encodeURI(imageUrl);
+
     return res.status(200).json({
-      message: "Usuario encontrado",
+      message: "Curso encontrado",
       data: {
         id: course?.id,
         course_name: course?.course_name,
-        course_logo: encodedUrl,
+        course_logo: course?.course_logo,
       },
     });
   }

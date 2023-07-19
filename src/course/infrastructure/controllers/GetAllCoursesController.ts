@@ -11,22 +11,9 @@ export class GetAllCoursesController {
     try {
       const courses = await this.getAllCoursesUseCase.run();
 
-      const baseUrl = `http://${process.env.IPPROJECT}:${process.env.PORTPROJECT}/public/`;
-
-      const transformedCourses = courses?.map((course) => {
-        const imageName = course.course_logo.split("\\").pop();
-        const imageUrl = baseUrl + imageName;
-        const encodedUrl = encodeURI(imageUrl);
-
-        return {
-          ...course,
-          course_logo: encodedUrl,
-        };
-      });
-
       return res.status(200).json({
         message: "Lista de cursos obtenida correctamente",
-        data: transformedCourses,
+        data: courses,
       });
     } catch (error) {
       console.error("Error al obtener la lista de cursos:", error);

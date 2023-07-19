@@ -1,6 +1,5 @@
 import express from "express";
 
-import upload from "../../libs/multer";
 import {
   createCourseController,
   getAllCoursesController,
@@ -10,11 +9,7 @@ import {
 export const courseRouter = express.Router();
 
 //Crear curso route
-courseRouter.post(
-  "/",
-  upload.single("course_logo"),
-  createCourseController.run.bind(createCourseController)
-);
+courseRouter.post("/", createCourseController.run.bind(createCourseController));
 
 //Obtener curso por id
 courseRouter.get(
